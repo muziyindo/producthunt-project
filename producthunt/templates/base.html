@@ -32,7 +32,7 @@
       }
     </style>
     <!-- Custom styles for this template -->
-    <link href="album.css" rel="stylesheet">
+    <!--<link href="album.css" rel="stylesheet">-->
   </head>
   <body>
     <header>
@@ -46,8 +46,18 @@
         <div class="col-sm-4 offset-md-1 py-4">
           <h4 class="text-white">Contact</h4>
           <ul class="list-unstyled">
-            <li><a href="#" class="text-white">Sign Up</a></li>
-            <li><a href="" class="text-white">Login</a></li>
+            {% if user.is_authenticated %}
+              <li><a href="javascript:{document.getElementById('logout').submit()}" class="text-white">Logout</a></li>
+              <li><a href="{% url 'create' %}" class="text-white">Add Product</a></li>
+              <form id="logout" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <input type="hidden" />
+
+              </form>
+            {% else %}
+              <li><a href="{% url 'signup' %}" class="text-white">Sign Up</a></li>
+              <li><a href="{% url 'login' %}" class="text-white">Login</a></li>
+            {% endif %}
             
           </ul>
         </div>
@@ -80,7 +90,7 @@
       <a href="#">Back to top</a>
     </p>
     <!-- <p>Album example is  Bootstrap, but please download and customize it for yourself!</p> -->
-    <p>&copy; copyright {% now "Y" %} Dauda Mueez</p>
+    <p>&copy; copyright {% now "Y" %} Product Hunt</p>
   </div>
 </footer>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

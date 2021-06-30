@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-
+<br/>
+{% if error %}
+<span style="color:red">{{ error }}</span>
+{% endif %}
+<br/>
 <div class="col-xs-12 col-sm-6 col-md-4">
 
 <h2>New user, Sign up here</h2>
 
 <form method="post" action="{% url 'signup' %}">
 {% csrf_token %}
+
 
 <div class="form-group">
 	<label>Username</label>

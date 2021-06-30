@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import products.views #alternatively, from products import views then views.funcionName
+from products import views #alternatively, from products import views then views.funcionName
+from django.conf.urls.static import static #added this
+from django.conf import settings #added this
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',products.views.home,name='home'),
-    path('accounts/',include('accounts.urls'), name='accounts'), #must import include from django.urls library
-]
+    path('',views.home,name='home'), # do this to return a specific view from an App
+    path('accounts/',include('accounts.urls'), name='accounts'), #must import include from django.urls library, do this
+    path('products/',include('products.urls'), name='products'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #added this
